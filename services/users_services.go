@@ -46,14 +46,6 @@ func FindLinkData(shortUrl string) (*domain.LinkData, *utils.RestErr) {
 	return linkData, nil
 }
 
-func DeleteUser(email string) *utils.RestErr {
-	restErr := domain.Delete(email)
-	if restErr != nil {
-		return restErr
-	}
-	return nil
-}
-
 func UpdateUser(email string, field string, value string) (*domain.User, *utils.RestErr) {
 	user, restErr := domain.Update(email, field, value)
 	if restErr != nil {

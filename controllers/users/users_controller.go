@@ -74,21 +74,6 @@ func UrlClicked(c *gin.Context) {
 	c.JSON(http.StatusOK, userLinkData)
 }
 
-func DeleteUser(c *gin.Context) {
-	userEmail := c.Query("email")
-	if userEmail == "" {
-		restErr := utils.BadRequest("no email.")
-		c.JSON(restErr.Status, restErr)
-		return
-	}
-	restErr := services.DeleteUser(userEmail)
-	if restErr != nil {
-		c.JSON(restErr.Status, restErr)
-		return
-	}
-	c.JSON(http.StatusOK, gin.H{"isRemoved": true})
-}
-
 func UpdateUser(c *gin.Context) {
 	userEmail := c.Query("email")
 	field := c.Query("field")

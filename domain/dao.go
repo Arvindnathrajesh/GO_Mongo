@@ -124,21 +124,6 @@ func FindUserLinkData(url string, userPhone string) (*UserLinkData, *utils.RestE
 	return &userLinkData, nil
 }
 
-func Delete(email string) *utils.RestErr {
-	usersC := db.Collection("users")
-	ctx, _ := context.WithTimeout(context.Background(), time.Second*10)
-	result, err := usersC.DeleteOne(ctx, bson.M{"email": email})
-	if err != nil {
-		restErr := utils.NotFound("faild to delete.")
-		return restErr
-	}
-	if result.DeletedCount == 0 {
-		restErr := utils.NotFound("user not found.")
-		return restErr
-	}
-	return nil
-}
-
 func UpdateUserLinkData(userLinkData *UserLinkData) (*UserLinkData, *utils.RestErr) {
 	UserLinkDatasC := db.Collection("UserLinkData")
 	ctx, _ := context.WithTimeout(context.Background(), time.Second*10)
