@@ -1,6 +1,7 @@
 package users
 
 import (
+	"fmt"
 	"net/http"
 
 	"../../domain"
@@ -53,6 +54,24 @@ func FindUser(c *gin.Context) {
 		return
 	}
 	c.JSON(http.StatusOK, user)
+}
+
+func UrlClicked(c *gin.Context) {
+	shortUrl := c.Query("shortUrl")
+	usrPhone := c.Query("phone")
+	linkData, restErr1 := services.FindLinkData(shortUrl)
+	if restErr1 != nil {
+		c.JSON(restErr1.Status, restErr1)
+		return
+	}
+	fmt.Println(linkData)
+	userLinkData, restErr := services.UrlClicked(linkData.Url, usrPhone)
+	if restErr != nil {
+		c.JSON(restErr.Status, restErr)
+		return
+	}
+
+	c.JSON(http.StatusOK, userLinkData)
 }
 
 func DeleteUser(c *gin.Context) {

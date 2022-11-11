@@ -30,6 +30,22 @@ func FindUser(email string) (*domain.User, *utils.RestErr) {
 	return user, nil
 }
 
+func UrlClicked(url string, userPhone string) (*domain.UserLinkData, *utils.RestErr) {
+	userLinkData, restErr := domain.UrlClicked(url, userPhone)
+	if restErr != nil {
+		return nil, restErr
+	}
+	return userLinkData, nil
+}
+
+func FindLinkData(shortUrl string) (*domain.LinkData, *utils.RestErr) {
+	linkData, restErr := domain.FindLinkData(shortUrl)
+	if restErr != nil {
+		return nil, restErr
+	}
+	return linkData, nil
+}
+
 func DeleteUser(email string) *utils.RestErr {
 	restErr := domain.Delete(email)
 	if restErr != nil {
